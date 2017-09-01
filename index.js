@@ -49,7 +49,6 @@ Tagify.prototype = {
     callbacks: {
         onFocusBlur: function (e) {
             var text =  e.target.textContent.replace(/\u200B/g,'').trim();
-
             if (e.type == "focus") {
                 e.target.className = 'input';
             } else if( e.type == "blur" && text == "" ) {
@@ -117,7 +116,9 @@ Tagify.prototype = {
     },
 
     clear: function () {
-        this.value = [];
+        for (let i = 0; i < this.value.length; ++i) {
+            this.removeTag(i);
+        }
         this.DOM.input.textContent = '';
         this.DOM.originalInput.value = '';
         this.DOM.originalInput.dispatchEvent(new Event('input'));
